@@ -1,0 +1,50 @@
+name: deploy aws resources with terraform module
+on:
+  push:
+    branches: 
+    - main
+    paths:
+    - 'security-group/**'
+  pull_request:
+    branches: 
+    - main
+    paths:
+    - 'security-group/**'
+
+env:
+  TFE_TOKEN: "${{ secrets.TFE_TOKEN }}"      
+
+jobs:
+  deploy-sg:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:    
+              
+      - name: Checkout code
+        uses: actions/checkout@v3   
+           
+
+           
+                   
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.9.8
+
+      
+      - name: Terraform Init
+        working-directory: ./security-group
+        run: terraform init
+      
+      - name: Terraform Plan
+        working-directory: ./security-group
+        run: terraform plan
+
+      - name: Terraform Apply
+        id: apply
+        if: github.ref == 'refs/heads/main'
+        working-directory: ./security-group
+        run: terraform apply -auto-approve
