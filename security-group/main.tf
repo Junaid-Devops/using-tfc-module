@@ -1,4 +1,4 @@
-module "web_server_sg" {
+module "http_80_security_group" {
   source              =  "app.terraform.io/Agero/security-group/aws"
   version             = "4.8.0"
   name                = "test-module"
