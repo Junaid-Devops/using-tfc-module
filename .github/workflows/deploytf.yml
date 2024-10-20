@@ -3,13 +3,13 @@ on:
   push:
     branches: 
     - main
-    paths:
-    - 'security-group/**'
-  pull_request:
-    branches: 
-    - main
-    paths:
-    - 'security-group/**'
+  #   paths:
+  #   - 'security-group/**'
+  # pull_request:
+  #   branches: 
+  #   - main
+  #   paths:
+  #   - 'security-group/**'
 
 env:
   TFE_TOKEN: "${{ secrets.TFE_TOKEN }}"      
